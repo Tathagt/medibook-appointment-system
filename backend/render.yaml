@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: medibook-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: DB_HOST
+        fromDatabase:
+          name: medibook-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: medibook-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: medibook-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: medibook-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: medibook-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        value: https://medibook-frontend.vercel.app
+
+databases:
+  - name: medibook-db
+    databaseName: medibook
+    user: medibook_user
